@@ -1,0 +1,24 @@
+{
+   "type": "mysql",
+   "host": "edh-db",
+   "port": 3306,
+   "username": "edh",
+   "password": "5ekatIT5zejR8Aw84a",
+   "database": "edh",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/entity/**/*.ts"
+   ],
+   "migrations": [
+      "src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}
