@@ -5,12 +5,12 @@ import { Station } from "./Station";
 export class System {
 
     @PrimaryGeneratedColumn()
-    public id!: number;
+    public id: number;
 
     @Column()
-    public name!: string;
+    public name: string;
 
     @OneToMany(() => Station, (station: Station) => station.system)
-    stations!: Station[];
+    stations: Station[];
 
 }

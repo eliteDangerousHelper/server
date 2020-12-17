@@ -6,35 +6,35 @@ import { Market } from "./Market";
 export class CommodityMarket {
 
     @PrimaryGeneratedColumn()
-    public id!: number;
+    public id: number;
 
-    @ManyToOne(() => Commodity, (commodity: Commodity) => commodity.commodityMarket)
-    commodity!: Commodity;
+    @ManyToOne(() => Commodity, (commodity: Commodity) => commodity.markets)
+    commodity: Commodity;
 
-    @ManyToOne(() => Market, (market: Market) => market.commodityMarket)
-    market!: Market;
-
-    @Column()
-    buy_price!: number;
+    @ManyToOne(() => Market, (market: Market) => market.commodities)
+    market: Market;
 
     @Column()
-    demand!: number;
+    buy_price: number;
 
     @Column()
-    demand_bracket!: number;
+    demand: number;
 
     @Column()
-    mean_price!: number;
+    demand_bracket: number;
 
     @Column()
-    sell_price!: number;
+    mean_price: number;
 
     @Column()
-    stock!: number;
+    sell_price: number;
 
     @Column()
-    stock_bracket!: number;
+    stock: number;
 
     @Column()
-    update_at!: Date;
+    stock_bracket: number;
+
+    @Column()
+    update_at: Date;
 }

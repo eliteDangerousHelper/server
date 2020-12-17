@@ -6,16 +6,16 @@ import { Market } from "./Market";
 export class Commodity {
 
     @PrimaryGeneratedColumn()
-    public id: number = 0;
+    public id: number;
 
     @OneToMany(() => CommodityMarket,(commodityMarket: CommodityMarket) => commodityMarket.commodity)
-    public commodityMarket!: CommodityMarket[];
+    public markets: CommodityMarket[];
 
     @ManyToMany(() => Market, (market: Market) => market.prohibited)
     @JoinTable()
-    public prohibitedMarkets!: Market[];
+    public prohibitedMarkets: Market[];
 
     @Column()
-    public name: string = "";
+    public name: string;
 
 }

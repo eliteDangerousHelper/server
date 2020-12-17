@@ -6,17 +6,14 @@ import { Market } from "./Market";
 export class Station {
 
     @PrimaryGeneratedColumn()
-    public id!: number;
+    public id: number;
 
     @Column()
-    public name!: string;
-
-    @Column()
-    public system_id!: string;
+    public name: string;
 
     @ManyToOne(() => System, (system: System) => system.stations)
-    system!: System;
+    system: System;
 
     @OneToOne(() => Market, (market: Market) => market.station)
-    market!: Market;
+    market: Market;
 }

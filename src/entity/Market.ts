@@ -15,19 +15,19 @@ import { Commodity } from "./Commodity";
 export class Market {
 
     @PrimaryGeneratedColumn()
-    public id: number = 0;
+    public id: number;
 
     @OneToMany(() => CommodityMarket,(commodityMarket: CommodityMarket) => commodityMarket.market)
-    public commodityMarket!: CommodityMarket[];
+    public commodities: CommodityMarket[];
 
     @ManyToMany(() => Commodity, (commodity: Commodity) => commodity.prohibitedMarkets )
-    public prohibited!: Commodity[];
+    public prohibited: Commodity[];
 
     @OneToOne(() => Station, (station: Station) => station.market)
     @JoinColumn()
     station!: Station;
 
     @Column()
-    public name: string = "";
+    public external_id: string;
 
 }
