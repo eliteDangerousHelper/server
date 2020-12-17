@@ -8,8 +8,6 @@ services:
             context: ..
             target: development
             dockerfile: .docker/Dockerfile
-            cache_from:
-                - ${APP_IMAGE}
         volumes:
             - ..:/application
         ports:
