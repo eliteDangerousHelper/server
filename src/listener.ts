@@ -2,7 +2,6 @@ import config from "./config/eddn";
 import { Subscriber } from "zeromq";
 import { inflateSync } from "zlib";
 import {createConnection} from "typeorm";
-import {User} from "./entity/User";
 import "reflect-metadata";
 import { dispatch } from "./collector/dispacher";
 
@@ -13,14 +12,14 @@ async function run() {
  
   sock.connect(uri);
   sock.subscribe("");
-  console.log('Worker connected to port 9500');
+  console.log('Worker connected to port ' + config.port);
  
   for await (const [msg] of sock) {
     dispatch(JSON.parse(inflateSync(msg).toString()));
   }
 }
 
-createConnection().then(async connection => {
+createConnection().then(async () => {
   console.log("Connected");
   
   run();
