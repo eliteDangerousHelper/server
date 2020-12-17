@@ -20,8 +20,8 @@ export class CommodityMarket {
     @Column()
     demand: number;
 
-    @Column()
-    demand_bracket: number;
+    @Column({nullable: true})
+    demand_bracket?: number;
 
     @Column()
     mean_price: number;
@@ -32,8 +32,8 @@ export class CommodityMarket {
     @Column()
     stock: number;
 
-    @Column()
-    stock_bracket: number;
+    @Column({nullable: true})
+    stock_bracket?: number;
 
     @Column()
     update_at: Date;

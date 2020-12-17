@@ -12,7 +12,7 @@ export default async (message: CommodityMessage) => {
 
   let market = await marketRepository.findOne({
     where: {
-      id: message.marketId
+      external_id: message.marketId.toString()
     },
     relations: ["commodities"]
   })
@@ -50,14 +50,13 @@ export default async (message: CommodityMessage) => {
 
     commodityMarket.buy_price = c.buyPrice;
     commodityMarket.demand = c.demand;
-    commodityMarket.demand_bracket = c.demandBracket;
+    commodityMarket.demand_bracket = c.demandBracket === "" ? undefined : c.demandBracket;
     commodityMarket.mean_price = c.meanPrice;
     commodityMarket.sell_price = c.sellPrice;
     commodityMarket.stock = c.stock;
-    commodityMarket.stock_bracket = c.stockBracket;
+    commodityMarket.stock_bracket = c.stockBracket === "" ? undefined : c.stockBracket;
     commodityMarket.update_at = new Date(message.timestamp);
-    console.log(commodityMarket);
 
-    await commodityMarketRepository.save(commodityMarket);
+    await commodityMarketRepository.save(commodityMarket).catch(reason => console.log(c));
   })
 }

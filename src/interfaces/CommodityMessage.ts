@@ -3,12 +3,12 @@ import Message from "./Message";
 interface Commodity {
   buyPrice: number;
   demand: number;
-  demandBracket: number;
+  demandBracket: 0|1|2|3|"";
   meanPrice: number;
   name: string;
   sellPrice: number;
   stock: number;
-  stockBracket: number;
+  stockBracket: 0|1|2|3|"";
 }
 
 export interface Economy {
