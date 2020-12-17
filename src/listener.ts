@@ -15,7 +15,7 @@ async function run() {
   console.log('Worker connected to port 9500');
  
   for await (const [msg] of sock) {
-    console.log(JSON.parse(inflateSync(msg).toString()));
+    // console.log(JSON.parse(inflateSync(msg).toString()));
   }
 }
 
