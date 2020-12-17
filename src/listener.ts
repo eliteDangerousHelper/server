@@ -15,7 +15,11 @@ async function run() {
   console.log('Worker connected to port 9500');
  
   for await (const [msg] of sock) {
-    // console.log(JSON.parse(inflateSync(msg).toString()));
+    const test = JSON.parse(inflateSync(msg).toString());
+    if (test.$schemaRef == "https://eddn.edcd.io/schemas/commodity/3") {
+      console.log(test.message);
+    }
+
   }
 }
 
