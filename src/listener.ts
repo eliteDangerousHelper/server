@@ -19,10 +19,8 @@ async function run() {
   }
 }
 
-createConnection().then(async () => {
+createConnection().then(() => {
   console.log("Connected");
   
   run();
 }).catch(error => console.log(error));
-
-
