@@ -1,12 +1,18 @@
 import { Application } from "express";
-import { NodesController } from "../controller/nodes.controller";
+import { MarketController } from "../controller/market.controller";
 
 export class Routes {
-  public nodesController: NodesController = new NodesController();
+  public marketController: MarketController = new MarketController();
 
   public routes(app: Application): void {
-    app.route("/").get(this.nodesController.index);
+    app.route("/").get(this.marketController.index);
 
-    app.route("/nodes").get(this.nodesController.index);
+    app.route("/market")
+      .get(this.marketController.index)
+    ;
+
+    app.route("/market/:id")
+      .get(this.marketController.show)
+    ;
   }
 }

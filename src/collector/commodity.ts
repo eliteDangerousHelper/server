@@ -3,7 +3,6 @@ import { getRepository } from "typeorm";
 import { Market } from "../entity/Market";
 import { CommodityMarket } from "../entity/CommodityMarket";
 import { Commodity } from "../entity/Commodity";
-import { exit } from "process";
 
 export default async (message: CommodityMessage) => {
   const marketRepository = getRepository(Market);
