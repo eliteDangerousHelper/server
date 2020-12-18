@@ -17,7 +17,7 @@ export class MarketController {
     const marketId: string = req.params.id;
     const marketRepository = getRepository(Market);
 
-    marketRepository.find({
+    marketRepository.findOne({
       where: {
         external_id: marketId
       },
@@ -29,9 +29,9 @@ export class MarketController {
             prohibited: "market.prohibited"
         }
       }
-    }).then((markets: Market[]) => {
-      if (markets.length === 1) {
-        res.json(markets.shift());
+    }).then((market: Market | undefined) => {
+      if (market) {
+        res.json(market);
       } else {
         res.status(404).json({ errors: ["market not found"] });
       }
