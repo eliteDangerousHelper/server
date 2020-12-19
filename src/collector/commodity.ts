@@ -12,7 +12,7 @@ export default async (message: CommodityMessage) => {
   const commodityMarketRepository = getRepository(CommodityMarket);
   const systemRepository = getRepository(System);
   const stationRepository = getRepository(Station);
-  const prohibitedList = [];
+  const prohibitedList: Commodity[] = [];
 
   let market = await marketRepository.findOne({
     where: {
@@ -25,13 +25,13 @@ export default async (message: CommodityMessage) => {
     market = new Market();
     market.external_id = message.marketId.toString();
   }
-
-  if (market.station === null) {
+  
+  if (!market.station) {
     let system = await systemRepository.findOne({
       where: {
         name: message.systemName
       }
-    })
+    });
 
     if (!system) {
       system = new System();
@@ -58,19 +58,21 @@ export default async (message: CommodityMessage) => {
     market.station = station;
   }
 
-  for (const p of message.prohibited) {
-    let prohibited = await commodityRepository.findOne({
-      where: {
-        name: p
+  if (message.prohibited) {
+    for (const p of message.prohibited) {
+      let prohibited = await commodityRepository.findOne({
+        where: {
+          name: p
+        }
+      })
+    
+      if (!prohibited) {
+        prohibited = new Commodity();
+        prohibited.name = p;
+        await commodityRepository.save(prohibited);
       }
-    })
-  
-    if (!prohibited) {
-      prohibited = new Commodity();
-      prohibited.name = p;
-      await commodityRepository.save(prohibited);
+      prohibitedList.push(prohibited);
     }
-    prohibitedList.push(prohibited);
   }
 
   market.prohibited = prohibitedList;
