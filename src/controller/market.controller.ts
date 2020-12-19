@@ -7,7 +7,14 @@ export class MarketController {
     const marketRepository = getRepository(Market);
 
     const markets = await marketRepository.find({
-      select: ["id", "external_id"]
+      select: ["id", "external_id"],
+      join: {
+        alias: "market",
+        leftJoinAndSelect: {
+            station: "market.station",
+            prohibited: "market.prohibited"
+        }
+      }
     }).then(markets => {
       res.json(markets);
     })
