@@ -6,15 +6,8 @@ export class MarketController {
   public async index(req: Request, res: Response) {
     const marketRepository = getRepository(Market);
 
-    const markets = await marketRepository.find({
-      select: ["id", "external_id"],
-      join: {
-        alias: "market",
-        leftJoinAndSelect: {
-            station: "market.station",
-            prohibited: "market.prohibited"
-        }
-      }
+    await marketRepository.find({
+      select: ["external_id"]
     }).then(markets => {
       res.json(markets);
     })
@@ -28,14 +21,7 @@ export class MarketController {
       where: {
         external_id: marketId
       },
-      select: ["external_id"],
-      join: {
-        alias: "market",
-        leftJoinAndSelect: {
-            station: "market.station",
-            prohibited: "market.prohibited"
-        }
-      }
+      relations: ["commodities", "prohibited", "station", "station.system"]
     }).then((market: Market | undefined) => {
       if (market) {
         res.json(market);
