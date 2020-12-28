@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+    api:
+        image: ${API_IMAGE}
+        container_name: ${API_NAME}
+        restart: always
+        build:
+            context: ..
+            target: production
+            dockerfile: .docker/api/Dockerfile
+        volumes:
+            - ..:/application
+        ports:
+          - 8080:${API_PORT}
+        depends_on: 
+            - mariadb
+
+    listener:
+        image: ${LISTENER_IMAGE}
+        container_name: ${LISTENER_NAME}
+        restart: always
+        build:
+            context: ..
+            target: production
+            dockerfile: .docker/listener/Dockerfile
+        volumes:
+            - ..:/application
+        depends_on: 
+            - mariadb
+
+    mariadb:
+        image: mariadb:10.3
+        container_name: ${DB_IMAGE_NAME}
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DB_NAME}
+            - MYSQL_USER=${DB_USER}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
+        volumes:
+          - ../data:/var/lib/mysql
+        

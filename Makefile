@@ -16,7 +16,7 @@ up:				## Start service, rebuild if necessary
 ifeq ($(ENV),dev)
 	cd .docker && docker-compose -f docker-compose.yml up --build -d
 else
-	cd .docker && docker-compose -f docker-compose.yml up --no-build -d 
+	cd .docker && docker-compose -f docker-compose.prod.yml up build -d 
 endif
 
 shell:			## Enter container shell
