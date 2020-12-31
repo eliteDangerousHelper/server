@@ -1,7 +1,7 @@
 import config from "./config/eddn";
 import { Subscriber } from "zeromq";
 import { inflateSync } from "zlib";
-import {createConnection} from "typeorm";
+import {Connection, createConnection} from "typeorm";
 import "reflect-metadata";
 import { dispatch } from "./collector/dispacher";
 
@@ -19,7 +19,8 @@ async function run() {
   }
 }
 
-createConnection().then(() => {
+createConnection().then((connection: Connection) => {
+  connection.synchronize();
   console.log("Connected");
   
   run();
