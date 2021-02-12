@@ -1,4 +1,4 @@
-# Default make ENV is development. use make [target] ENV=prod for production
+# Default make ENV is development. use make [target] ENV=production for production
 ENV ?= dev
 
 .DEFAULT_GOAL:=up
@@ -13,11 +13,7 @@ deploy:			## Deploy Prod Image (alias for `make up ENV=prod`)
 	@make up ENV=production
 
 up:				## Start service, rebuild if necessary
-ifeq ($(ENV),dev)
 	cd .docker && docker-compose -f docker-compose.yml up --build -d
-else
-	cd .docker && docker-compose -f docker-compose.prod.yml up build -d 
-endif
 
 shell:			## Enter container shell
 	cd .docker && docker-compose -f docker-compose.yml exec app /bin/sh -l
