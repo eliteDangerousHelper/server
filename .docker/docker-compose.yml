@@ -27,6 +27,18 @@ services:
         depends_on: 
             - mariadb
 
+    initializer:
+        image: ${INITIALIZER_IMAGE}
+        container_name: ${INITIALIZER_NAME}
+        build:
+            context: ..
+            target: development
+            dockerfile: .docker/initializer/Dockerfile
+        volumes:
+            - ..:/application
+        depends_on: 
+            - mariadb
+
     mariadb:
         image: mariadb:10.3
         container_name: ${DB_IMAGE_NAME}

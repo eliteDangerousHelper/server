@@ -4,18 +4,21 @@
    "description": "",
    "main": "./src/listener.ts",
    "scripts": {
-      "listener-build": "tsc",
+      "build": "tsc",
       "listener-start": "./bin/listener.js",
       "listener-dev": "ts-node ./src/listener.ts",
-      "api-build": "tsc",
       "api-start": "./bin/api.js",
-      "api-dev": "ts-node ./src/api.ts"
+      "api-dev": "ts-node ./src/api.ts",
+      "initializer-dev": "NODE_OPTIONS=\"--max-old-space-size=6144\" ts-node ./src/initializer.ts"
    },
    "author": "",
    "license": "MIT",
    "dependencies": {
+      "csvtojson": "^2.0.10",
       "dotenv": "^8.2.0",
       "express": "^4.17.1",
+      "fast-csv": "^4.3.6",
+      "line-reader": "^0.4.0",
       "mysql": "^2.14.1",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.29",
@@ -24,7 +27,8 @@
    },
    "devDependencies": {
       "@types/express": "^4.17.9",
-      "@types/node": "^14.14.14",
+      "@types/line-reader": "^0.0.33",
+      "@types/node": "^14.14.27",
       "ts-node": "3.3.0",
       "typescript": "^4.1.3"
    }

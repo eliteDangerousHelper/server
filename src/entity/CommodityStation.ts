@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Commodity } from "./Commodity";
-import { Market } from "./Market";
+import { Station } from "./Station";
 
 @Entity()
-export class CommodityMarket {
+export class CommodityStation {
 
     @PrimaryGeneratedColumn()
     public id: number;
@@ -11,8 +11,8 @@ export class CommodityMarket {
     @ManyToOne(() => Commodity, (commodity: Commodity) => commodity.markets)
     commodity: Commodity;
 
-    @ManyToOne(() => Market, (market: Market) => market.commodities)
-    market: Market;
+    @ManyToOne(() => Station, (station: Station) => station.commodities)
+    station: Station;
 
     @Column()
     buy_price: number;
@@ -20,11 +20,11 @@ export class CommodityMarket {
     @Column()
     demand: number;
 
-    @Column({nullable: true})
-    demand_bracket?: number;
+    @Column({type: "int", nullable: true})
+    demand_bracket?: number|null = null;
 
-    @Column()
-    mean_price: number;
+    @Column({type: "int", nullable: true})
+    mean_price?: number|null = null;
 
     @Column()
     sell_price: number;
@@ -32,8 +32,8 @@ export class CommodityMarket {
     @Column()
     stock: number;
 
-    @Column({nullable: true})
-    stock_bracket?: number;
+    @Column({type: "int", nullable: true})
+    stock_bracket?: number|null = null;
 
     @Column()
     update_at: Date;

@@ -6,3 +6,5 @@ tmp/
 temp/
 .env
 .docker/.env
+data/*
+!data/.gitkeep

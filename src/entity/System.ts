@@ -7,8 +7,8 @@ export class System {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({unique: true})
-    public name: string;
+    @Column({type: "varchar", nullable: true})
+    public name: string | null = null;
 
     @Column({type: "int", nullable: true})
     public position_x: number | null = null;
@@ -20,9 +20,11 @@ export class System {
     public position_z: number | null = null;
 
     @Column({type: "varchar", unique: true, nullable: true})
-    public external_id: string | null = null;
+    public eddb_id: string | null = null;
+
+    @Column({type: "varchar", unique: true, nullable: true})
+    public edsm_id: string | null = null;
 
     @OneToMany(() => Station, (station: Station) => station.system)
     stations: Station[];
-
 }

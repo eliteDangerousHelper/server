@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from "typeorm";
-import { CommodityMarket } from "./CommodityMarket";
-import { Market } from "./Market";
+import { CommodityStation } from "./CommodityStation";
+import { Station } from "./Station";
 
 @Entity()
 export class Commodity {
@@ -8,14 +8,14 @@ export class Commodity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @OneToMany(() => CommodityMarket,(commodityMarket: CommodityMarket) => commodityMarket.commodity)
-    public markets: CommodityMarket[];
+    @OneToMany(() => CommodityStation,(commodityStation: CommodityStation) => commodityStation.commodity)
+    public markets: CommodityStation[];
 
-    @ManyToMany(() => Market, (market: Market) => market.prohibited)
+    @ManyToMany(() => Station, (station: Station) => station.prohibited)
     @JoinTable()
-    public prohibitedMarkets: Market[];
+    public prohibitedMarkets: Station[];
 
-    @Column()
-    public name: string;
+    @Column({type: "varchar", unique: true, nullable: true})
+    public name: string | null = null;
 
 }
