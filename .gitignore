@@ -8,3 +8,4 @@ temp/
 .docker/.env
 data/*
 !data/.gitkeep
+coverage/
