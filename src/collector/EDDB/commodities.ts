@@ -48,11 +48,19 @@ const integrateCommodity = async (s: CommodityInterface) => {
     category.id = s.category.id;
     category.name = s.category.name;
 
-    categoryRepository.save(category).catch((err) => console.log('Erreur de sauvegarde pour la category : ', s, err));
+    categoryRepository.save(category).catch((err) => {
+      if (err.code !== 'ER_DUP_ENTRY') {
+        throw err;
+      }
+    });
   }
 
   commodity.category = category
-  commodityRepository.save(commodity).catch((err) => console.log('Erreur de sauvegarde pour le commodity : ', s, err));
+  commodityRepository.save(commodity).catch((err) => {
+    if (err.code !== 'ER_DUP_ENTRY') {
+      throw err;
+    }
+  })
 }
 
 export const getCommodity = (): Promise<void> => {
