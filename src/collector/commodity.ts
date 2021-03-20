@@ -17,8 +17,7 @@ export default async (message: CommodityMessage) => {
   let market = await marketRepository.findOne({
     where: {
       external_id: message.marketId.toString()
-    },
-    relations: ["commodities"]
+    }
   })
 
   if (!market) {    
@@ -44,7 +43,8 @@ export default async (message: CommodityMessage) => {
       where: {
         name: message.stationName,
         system
-      }
+      },
+      relations: ["commodities"]
     });
 
     if (!station) {

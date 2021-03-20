@@ -14,7 +14,7 @@ export default async (message: JournalMessage) => {
   if (!system) {
     system = new System();
     system.name = message.StarSystem;
-    system.external_id = message.SystemAddress.toString();
+    system.edsm_id= message.SystemAddress.toString();
     system.position_x = message.StarPos[0];
     system.position_y = message.StarPos[1];
     system.position_z = message.StarPos[2];

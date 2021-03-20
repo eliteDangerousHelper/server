@@ -5,10 +5,12 @@ import "reflect-metadata";
 
 createConnection().then((connection) => {
   connection.synchronize().then(() => {
-    eddb.getSystems().then(() => {
-      eddb.getStations().then(() => {
-        eddb.getPrices();
+    eddb.getCommodity().then(()=> {
+      eddb.getSystems().then(() => {
+        eddb.getStations().then(() => {
+          eddb.getPrices();
+        });
       });
-    });
+    })
   })
 }).catch(error => console.log(error));
