@@ -6,9 +6,9 @@
    "scripts": {
       "build": "tsc",
       "listener-start": "./bin/listener.js",
-      "listener-dev": "ts-node ./src/listener.ts",
+      "listener-dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./src/listener.ts",
       "api-start": "./bin/api.js",
-      "api-dev": "ts-node ./src/api.ts",
+      "api-dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./src/api.ts",
       "initializer-dev": "NODE_OPTIONS=\"--max-old-space-size=6144\" ts-node ./src/initializer.ts",
       "test": "jest",
       "coverage": "jest --coverage"
@@ -33,6 +33,7 @@
       "@types/line-reader": "^0.0.33",
       "@types/node": "^14.14.27",
       "jest": "^26.6.3",
+      "nodemon": "^2.0.7",
       "ts-jest": "^26.5.4",
       "ts-node": "3.3.0",
       "typescript": "^4.1.3"

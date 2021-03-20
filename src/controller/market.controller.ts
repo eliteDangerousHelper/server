@@ -21,7 +21,7 @@ export class MarketController {
       where: {
         external_id: marketId
       },
-      relations: ["commodities", "prohibited", "station", "station.system"]
+      relations: ["station", "station.system"]
     }).then((market: Market | undefined) => {
       if (market) {
         res.json(market);
