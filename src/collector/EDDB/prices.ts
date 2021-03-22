@@ -95,7 +95,7 @@ const integratePrice = async (line: string) => {
     commodityStation.sell_price = parseInt(p.sell_price);
     commodityStation.stock = parseInt(p.supply);
     commodityStation.stock_bracket = parseInt(p.supply_bracket);
-    commodityStation.update_at = new Date(parseInt(p.collected_at));
+    commodityStation.update_at = new Date(p.collected_at);
     
     commodityStationRepository.save(commodityStation).catch((err) => {
       throw err;

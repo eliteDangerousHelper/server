@@ -26,5 +26,7 @@ export class System {
     public edsm_id: string | null = null;
 
     @OneToMany(() => Station, (station: Station) => station.system)
-    stations: Station[];
+    public stations: Station[];
+
+    public distance: number;
 }
