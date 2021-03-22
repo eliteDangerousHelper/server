@@ -77,14 +77,12 @@ export default async (message: CommodityMessage) => {
       let commodity = await commodityRepository.findOneByName(c.name)
   
       if (!commodity) {
-        commodity = new Commodity();
-        commodity.name = c.name;
-        await commodityRepository.save(commodity);
+        return;
       }
   
       let commodityStation = undefined;
       if (station?.commodities) {
-        commodityStation = station?.commodities.filter(cm => cm.commodity === commodity)[0];
+        commodityStation = station?.commodities.find(cm => cm.commodity === commodity);
       }
   
       if (!commodityStation) {
