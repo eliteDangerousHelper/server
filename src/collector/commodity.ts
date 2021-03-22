@@ -1,14 +1,15 @@
 import CommodityMessage from "../interfaces/CommodityMessage";
-import { getRepository } from "typeorm";
+import { getCustomRepository, getRepository } from "typeorm";
 import { Market } from "../entity/Market";
 import { CommodityStation } from "../entity/CommodityStation";
 import { Commodity } from "../entity/Commodity";
 import { System } from "../entity/System";
 import { Station } from "../entity/Station";
+import { CommodityRepository } from "../repository/CommodityRepository";
 
 export default async (message: CommodityMessage) => {
   const marketRepository = getRepository(Market);
-  const commodityRepository = getRepository(Commodity);
+  const commodityRepository = getCustomRepository(CommodityRepository);
   const commodityStationRepository = getRepository(CommodityStation);
   const systemRepository = getRepository(System);
   const stationRepository = getRepository(Station);
@@ -54,11 +55,7 @@ export default async (message: CommodityMessage) => {
 
       if (message.prohibited) {
         for (const p of message.prohibited) {
-          let prohibited = await commodityRepository.findOne({
-            where: {
-              name: p
-            }
-          })
+          let prohibited = await commodityRepository.findOneByName(p)
         
           if (!prohibited) {
             prohibited = new Commodity();
@@ -77,11 +74,7 @@ export default async (message: CommodityMessage) => {
     market.station = station;
 
     message.commodities.forEach(async c => {
-      let commodity = await commodityRepository.findOne({
-        where: {
-          name: c.name
-        }
-      })
+      let commodity = await commodityRepository.findOneByName(c.name)
   
       if (!commodity) {
         commodity = new Commodity();

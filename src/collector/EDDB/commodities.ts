@@ -1,10 +1,11 @@
-import { getRepository } from "typeorm";
+import { getCustomRepository, getRepository } from "typeorm";
 import { System } from "../../entity/System";
 import { eachLine } from "line-reader";
 import { getFile } from "./common";
 import { readFile } from "fs";
 import { Commodity } from "../../entity/Commodity";
 import { CommodityCategory } from "../../entity/CommodityCategory";
+import { CommodityRepository } from "../../repository/CommodityRepository";
 
 interface CategoryInterface {
   id: number;
@@ -29,9 +30,9 @@ interface CommodityInterface {
 }
 
 const integrateCommodity = async (s: CommodityInterface) => {
-  const commodityRepository = getRepository(Commodity);
+  const commodityRepository = getCustomRepository(CommodityRepository);
   const categoryRepository = getRepository(CommodityCategory);
-  let commodity = await commodityRepository.findOne({id: s.id}).catch(err => console.log('Erreur de recherche'));
+  let commodity = await commodityRepository.findOneByName(s.name).catch(err => console.log('Erreur de recherche'));
 
   if (!commodity) {
     commodity = new Commodity();
@@ -48,10 +49,14 @@ const integrateCommodity = async (s: CommodityInterface) => {
     category.id = s.category.id;
     category.name = s.category.name;
 
-    categoryRepository.save(category).catch((err) => {
+    await categoryRepository.save(category).catch(async (err) => {
       if (err.code !== 'ER_DUP_ENTRY') {
         throw err;
       }
+    
+      category = await categoryRepository.findOne({
+        name: s.category.name
+      })
     });
   }
 

@@ -73,10 +73,11 @@ const integrateStation = async (s: StationInterface) => {
       system = new System();
       system.eddb_id = s.system_id.toString();
 
-      systemRepository.save(system).catch((err) => {
+      systemRepository.save(system).catch(async (err) => {
         if (err.code !== 'ER_DUP_ENTRY') {
           throw err;
         }
+        system = await systemRepository.findOne({eddb_id: s.system_id.toString()});
       });
     }
     

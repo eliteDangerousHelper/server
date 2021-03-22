@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, ManyToOne, BeforeInsert } from "typeorm";
+import { slugify } from "../utils/stringUtils";
 import { CommodityCategory } from "./CommodityCategory";
 import { CommodityStation } from "./CommodityStation";
 import { Station } from "./Station";
@@ -22,4 +23,13 @@ export class Commodity {
     @Column({type: "varchar", nullable: true})
     public name: string | null = null;
 
+    @Column({type: "varchar", unique: true, nullable: true})
+    public slug: string | null = null;
+
+    @BeforeInsert()
+    updateSlug() {
+        if (this.name) {
+            this.slug = slugify(this.name);
+        }
+    }
 }
